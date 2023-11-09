@@ -8,7 +8,7 @@ public class Caloteiro {
 	private String name;
 	private String email;
 	private Integer debt;
-	private Calendar dateDebt;
+	private Calendar debtDate;
 	
 	
 	public Long getId() {
@@ -43,12 +43,12 @@ public class Caloteiro {
 		this.debt = debt;
 	}
 	
-	public Calendar getDateDebt() {
-		return dateDebt;
+	public Calendar getDebtDate() {
+		return debtDate;
 	}
 	
-	public void setDateDebt(Calendar dateDebt) {
-		this.dateDebt = dateDebt;
+	public void setDateDebt(Calendar debtDate) {
+		this.debtDate = debtDate;
 	}
 	
 }

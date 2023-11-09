@@ -20,7 +20,7 @@ public class CaloteiroDAO {
 	
 	public void add(Caloteiro caloteiro) {
 		String stmt = "insert into caloteiro " +
-				"(name, email, debt, dateDebt) " +
+				"(name, email, debt, debtDate) " +
 				"values (?,?,?,?)";
 		try {
 			PreparedStatement pstmt = this.connection.prepareStatement(stmt);
@@ -28,7 +28,7 @@ public class CaloteiroDAO {
 			pstmt.setString(1, caloteiro.getName());
 			pstmt.setString(2, caloteiro.getEmail());
 			pstmt.setInt(3, caloteiro.getDebt());
-			pstmt.setDate(4, new Date(caloteiro.getDateDebt().getTimeInMillis()));
+			pstmt.setDate(4, new Date(caloteiro.getDebtDate().getTimeInMillis()));
 			
 			pstmt.execute();
 			pstmt.close();
