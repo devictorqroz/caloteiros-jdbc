@@ -47,7 +47,7 @@ public class Caloteiro {
 		return debtDate;
 	}
 	
-	public void setDateDebt(Calendar debtDate) {
+	public void setDebtDate(Calendar debtDate) {
 		this.debtDate = debtDate;
 	}
 	
