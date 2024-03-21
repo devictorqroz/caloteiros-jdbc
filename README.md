@@ -1,2 +1,2 @@
 # caloteiros-jdbc
-- A simples crud using JDBC with MySQL. 
+- A simple crud using JDBC with MySQL. 
