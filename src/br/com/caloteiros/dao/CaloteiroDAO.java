@@ -52,15 +52,16 @@ public class CaloteiroDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
+				Long idCaloteiro = (long) rs.getInt("id");
 				String name = rs.getString("name");
 				String email = rs.getString("email");
 				int debt = rs.getInt("debt");
-				
 				Calendar debtDate = Calendar.getInstance();
 				debtDate.setTime(rs.getDate("debtDate"));
 				
 				caloteiro = new Caloteiro();
 				
+				caloteiro.setId(idCaloteiro);
 				caloteiro.setName(name);
 				caloteiro.setEmail(email);
 				caloteiro.setDebt(new Integer(debt));
@@ -76,9 +77,81 @@ public class CaloteiroDAO {
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
 
+	
+	public void update(Caloteiro caloteiro) {
+		String sql = "update caloteiro set name=?, email=?,"+
+				"debt=?, debtDate=? where id=?";
+		
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			stmt.setString(1, caloteiro.getName());
+			stmt.setString(2, caloteiro.getEmail());
+			stmt.setInt(3, caloteiro.getDebt());
+			stmt.setDate(4, new Date(caloteiro.getDebtDate().getTimeInMillis()));
+			stmt.setLong(5, caloteiro.getId());
+			
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	public void delete(Caloteiro caloteiro) {
+		String sql = "delete from caloteiro where id=?";
+		
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
+			
+			stmt.setLong(1, caloteiro.getId());
+			
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	public Caloteiro getCaloteiro(Long id) {
+		try {
+			PreparedStatement stmt = this.connection.
+					prepareStatement("select * from caloteiro where id=?");
+			stmt.setLong(1, id);
+			
+			Caloteiro caloteiro = null;
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				Long idCaloteiro = rs.getLong("id");
+				String name = rs.getString("name");
+				String email = rs.getString("email");
+				int debt = rs.getInt("debt");
+				Calendar debtDate = Calendar.getInstance();
+				debtDate.setTime(rs.getDate("debtDate"));
+				
+				caloteiro = new Caloteiro();
+				
+				caloteiro.setId(idCaloteiro);
+				caloteiro.setName(name);
+				caloteiro.setEmail(email);
+				caloteiro.setDebt(new Integer(debt));
+				caloteiro.setDebtDate(debtDate);
+			}
+			
+			rs.close();
+			stmt.close();
+			return caloteiro;
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 }
 
 
