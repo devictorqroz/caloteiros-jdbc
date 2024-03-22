@@ -11,7 +11,7 @@ public class ConnectionFactory {
 			return DriverManager.getConnection("jdbc:mysql://localhost/caloteiros", "root", "root");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}	
+		}
 	}
-	
+
 }
